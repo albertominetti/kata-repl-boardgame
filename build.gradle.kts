@@ -1,9 +1,19 @@
 plugins {
     id("java")
+    application
 }
 
 group = "com.minetti.kata"
 version = "1.0-SNAPSHOT"
+
+application {
+    mainClass = "com.minetti.kata.Main"
+}
+
+tasks.named<JavaExec>("run") {
+    // Let the REPL read commands from the terminal (or a pipe).
+    standardInput = System.`in`
+}
 
 repositories {
     mavenCentral()

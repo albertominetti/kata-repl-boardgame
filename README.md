@@ -21,7 +21,7 @@ test-driven development, decoupling, and small composable abstractions
 
 ## Quick start
 
-Requirements: JDK 17 or newer. The Gradle wrapper is included, so no local
+Requirements: JDK 25 or newer. The Gradle wrapper is included, so no local
 Gradle installation is needed.
 
 ```bash
@@ -127,28 +127,6 @@ ID;Title;Tags;Rating;PlayTime;Price;Description
 
 The data is derived from BoardGameGeek and is included only as kata material.
 
-## Project layout
-
-```text
-src/main/java/com/minetti/kata/
-├── Main.java                  # startup, REPL loop, error handling
-├── CommandResult.java         # immutable command output
-├── input/
-│   ├── BoardGameList.java     # port: where the catalog comes from
-│   ├── LocalBoardGameList.java  # classpath implementation (used)
-│   ├── RemoteBoardGameList.java # HTTP implementation (not wired in)
-│   ├── BoardGamesParser.java  # CSV -> BoardGame records
-│   ├── CommandLineParser.java # tokenizing, command/filter resolution
-│   ├── FilterParser.java      # FILTER_X=value -> Predicate<BoardGame>
-│   ├── CommandRequest.java
-│   └── CsvFormatException.java
-└── process/
-    ├── BoardGame.java         # record: id, title, tags, rating, playTime, price, description
-    ├── BoardGameService.java  # filter once, then run each command
-    ├── filter/                # FilterStrategy + one strategy per filter
-    └── strategy/              # CommandStrategy + one strategy per command
-```
-
 ## Design notes
 
 - **Separation of input and processing.** `BoardGameList` hides the catalog
@@ -171,26 +149,12 @@ src/main/java/com/minetti/kata/
   selected by `Main`.
 - An error ends the REPL because the catch block wraps the whole loop.
 - Filters are exact-match only (title is the exception, using substring).
-- There is no CI workflow and no license file in the repository.
 
 ## Tests
 
 ```bash
 ./gradlew test
 ```
-
-The 95 tests are organised by layer under `src/test/java`:
-
-- CSV parsing edge cases: quoting, delimiters, blank tags, incomplete rows,
-  whitespace, bundled catalog contents.
-- Command-line tokenizing: multiple commands/filters, order, quoting,
-  case-insensitivity, and invalid input.
-- Filter and command strategies, including empty and no-match inputs.
-- `BoardGameService` composition: AND semantics, filter position independence,
-  multiple commands, `EXIT`, and custom strategy injection.
-
-`src/test/java/com/minetti/kata/support/BoardGameFixtures.java` provides the
-shared sample games.
 
 ## Possible kata exercises
 
@@ -204,4 +168,4 @@ shared sample games.
 
 ## Tech stack
 
-Java 17+, Gradle 9.1 (wrapper), OpenCSV 5.12.0, JUnit 5.12.2.
+Java 25, Gradle 9.1 (wrapper), OpenCSV 5.12.0, JUnit 5.12.2.

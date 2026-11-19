@@ -6,6 +6,12 @@ plugins {
 group = "com.minetti.kata"
 version = "1.0-SNAPSHOT"
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
 application {
     mainClass = "com.minetti.kata.Main"
 }

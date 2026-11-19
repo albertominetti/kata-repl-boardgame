@@ -169,3 +169,7 @@ The data is derived from BoardGameGeek and is included only as kata material.
 ## Tech stack
 
 Java 25, Gradle 9.1 (wrapper), OpenCSV 5.12.0, JUnit 5.12.2.
+
+## License
+
+Released under the [MIT License](LICENSE).
